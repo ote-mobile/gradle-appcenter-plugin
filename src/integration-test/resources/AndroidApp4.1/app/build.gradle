@@ -3,7 +3,7 @@ plugins {
     id 'kotlin-android'
 }
 
-apply plugin: "com.betomorrow.appcenter"
+apply plugin: "com.devexperts.appcenter"
 
 def localProperties = new Properties()
 localProperties.load(new FileInputStream(rootProject.file("local.properties")))

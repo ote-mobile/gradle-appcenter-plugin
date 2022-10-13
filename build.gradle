@@ -24,7 +24,7 @@ apply plugin: 'java-gradle-plugin'
 apply plugin: 'kotlin'
 apply plugin: 'maven-publish'
 
-group 'gradle.plugin.com.betomorrow.gradle'
+group 'com.devexperts.gradle'
 version '2.0.2.1'
 
 repositories {
@@ -116,7 +116,7 @@ gradlePlugin {
     testSourceSets sourceSets.integrationTest
     plugins {
         appCenterPlugin {
-            id = 'com.betomorrow.appcenter'
+            id = 'com.devexperts.appcenter'
             implementationClass = 'com.betomorrow.gradle.appcenter.AppCenterPlugin'
         }
     }
@@ -137,13 +137,13 @@ wrapper {
 }
 
 pluginBundle {
-    website = 'https://github.com/oliviergauthier/gradle-appcenter-plugin'
-    vcsUrl = 'https://github.com/oliviergauthier/gradle-appcenter-plugin'
+    website = 'https://github.com/ote-mobile/gradle-appcenter-plugin'
+    vcsUrl = 'https://github.com/ote-mobile/gradle-appcenter-plugin'
     tags = ['android', 'appcenter', 'plugin', 'tool']
 
     plugins {
         appCenterPlugin {
-            id = 'com.betomorrow.appcenter'
+            id = 'com.devexperts.appcenter'
             displayName = 'Gradle AppCenter Plugin'
             description = 'Plugin to upload apk to AppCenter'
         }
