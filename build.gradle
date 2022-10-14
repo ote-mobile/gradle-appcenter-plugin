@@ -1,31 +1,33 @@
+import org.gradle.api.publish.maven.internal.dependencies.DefaultMavenDependency
+
 buildscript {
     ext {
-        kotlinVersion= '1.5.30'
+        kotlinVersion= '1.7.10'
     }
     repositories {
         mavenCentral()
-        maven {
-            url "https://plugins.gradle.org/m2/"
-        }
+        maven { url 'https://maven.in.devexperts.com/content/repositories/thirdparty' }
+        mavenLocal()
     }
     dependencies {
-        classpath "com.gradle.publish:plugin-publish-plugin:0.14.0"
+        classpath('com.devexperts.gradle.auth:maven-auth:1.0') {
+            exclude group: 'com.google.code.google-collections'
+        }
     }
 }
-
-
 
 plugins {
     id 'org.jetbrains.kotlin.jvm' version "${kotlinVersion}"
 }
 
-apply plugin: "com.gradle.plugin-publish"
+
+//apply plugin: "com.gradle.plugin-publish"
 apply plugin: 'java-gradle-plugin'
 apply plugin: 'kotlin'
 apply plugin: 'maven-publish'
 
 group 'com.devexperts.gradle'
-version '2.0.2.1'
+version '2.0.2.1-SNAPSHOT'
 
 repositories {
     mavenCentral()
@@ -136,16 +138,23 @@ wrapper {
     distributionType = Wrapper.DistributionType.ALL
 }
 
-pluginBundle {
-    website = 'https://github.com/ote-mobile/gradle-appcenter-plugin'
-    vcsUrl = 'https://github.com/ote-mobile/gradle-appcenter-plugin'
-    tags = ['android', 'appcenter', 'plugin', 'tool']
+apply plugin: 'maven-auth'
+apply plugin: 'maven-publish'
 
-    plugins {
-        appCenterPlugin {
-            id = 'com.devexperts.appcenter'
-            displayName = 'Gradle AppCenter Plugin'
-            description = 'Plugin to upload apk to AppCenter'
+
+
+publishing {
+    repositories {
+        mavenLocal()
+        maven {
+            name 'snapshot'
+            it.auth 'mobile'
+            url 'https://maven.in.devexperts.com/content/repositories/mobile-snapshot'
+        }
+        maven {
+            name 'release'
+            it.auth 'mobile'
+            url 'https://maven.in.devexperts.com/content/repositories/mobile'
         }
     }
 }
